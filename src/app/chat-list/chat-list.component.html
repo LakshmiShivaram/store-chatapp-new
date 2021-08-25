@@ -1,0 +1,45 @@
+<div class="card maincard">
+  <div class="col-sm-6">
+    <div class="panel">
+      <div class="panel-head">
+        <h5>Contacts List</h5>
+      </div>
+      <div class="panel-body" *ngFor="let chatData of contactsForDisplay$ | async  | keyvalue;">
+        <p>{{chatData |json}}</p>
+
+
+
+        <div class="card chatcards" [routerLink]="['/chat',chatData.value['id']]">
+          <div class="row">
+            <div class="col-sm-2 chatimg">
+              <img
+                [src]="chatData.value['sender']['profileImage']"
+                width="60"
+                height="60"
+              />
+
+            </div>
+            <div class="col-sm-10 chatdet">
+              <p id="chatname"><b>{{chatData.sender.name}}</b></p>
+              <div *ngFor="let item of contactsForDisplay$ | async | keyvalue;">
+                <div *ngIf="chatData.id==item.value['chatId']">
+                  <div *ngFor="let msg of item.value['message'];let last=last">
+                    <div *ngIf="last">
+                      <span class="text">{{ msg }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+              <div>
+                <p><b>{{chatData.content}}</b></p>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
